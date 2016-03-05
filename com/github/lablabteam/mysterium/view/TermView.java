@@ -6,6 +6,7 @@ import com.github.lablabteam.mysterium.logic.Controller;
 import com.github.lablabteam.mysterium.utils.CallbackOnFinished;
 import com.github.lablabteam.mysterium.utils.ProcessCallback;
 import com.github.lablabteam.mysterium.utils.ResourceManager;
+import com.github.lablabteam.mysterium.utils.locale.Locale;
 
 public class TermView extends View {
 
@@ -34,7 +35,22 @@ public class TermView extends View {
 
     @Override
     public void setupGameView() {
-        System.out.println("Game starting!!!");
+        System.out.println(Locale.getInstance().getText("setup_game_view_message"));
+    }
+
+    @Override
+    public void closeGameView() {
+        System.out.println("Closing TermView");
+    }
+
+    @Override
+    public void showMainMenu() {
+        System.out.println("Show main menu");
+    }
+
+    @Override
+    public void showHelp() {
+        System.out.println("Help!");
     }
 
 }

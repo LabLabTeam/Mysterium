@@ -14,4 +14,7 @@ public abstract class View {
     
     public abstract <T> void displayLoading(T obj, CallbackOnFinished<T> cb, List<String> paths);
     public abstract void setupGameView();
+    public abstract void showMainMenu();
+    public abstract void closeGameView();
+    public abstract void showHelp();
 }
