@@ -39,6 +39,7 @@ public class FSM implements Controller{
     
     private void setNextState(States state) {
         this.state = state;
+        System.out.println("   New state " + this.state);
     }
     
     public boolean shouldExit() {
@@ -46,7 +47,6 @@ public class FSM implements Controller{
     }
 
     private void execState() {
-        System.out.println("   Executing state " + this.state);
         switch (this.state) {
         case INIT:
             setNextState(States.LOADING_SCREEN);
@@ -87,7 +87,7 @@ public class FSM implements Controller{
             break;
         case S9:
             if (this.SIGNAL_requestExit) setNextState(States.EXIT);
-            Utils.sleep(1000);
+            Utils.sleep(100);
             break;
         case EXIT:
             this.exit = true;
