@@ -32,7 +32,7 @@ public class ResourceManager {
 		}
 	}
 	
-	public void loadFileByPath(String path, ProcessCallback cb) {
+	public File loadFileByPath(String path, ProcessCallback cb) {
 		if (cb != null) {
 			cb.callbackStatusAction("Loading file: " + path);
 		}
@@ -48,6 +48,7 @@ public class ResourceManager {
 				cb.callbackStatusPercentage(100);
 			}
 		}
+		return resourceMap.get(path);
 	}
 	
 }
