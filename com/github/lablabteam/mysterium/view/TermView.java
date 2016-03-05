@@ -53,4 +53,9 @@ public class TermView extends View {
         System.out.println("Help!");
     }
 
+    @Override
+    public void showMysteriumGame() {
+        System.out.println("Mysterium game!");
+    }
+
 }

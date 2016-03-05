@@ -17,4 +17,5 @@ public abstract class View {
     public abstract void showMainMenu();
     public abstract void closeGameView();
     public abstract void showHelp();
+    public abstract void showMysteriumGame();
 }
