@@ -13,7 +13,8 @@ public class FSM implements Controller{
         INIT, // Init, just go to next state
         LOADING_SCREEN, // Display a loading screen while loading resources
         POST_LOADING_SCREEN, // Dummy state. Should not be called... except if the loading screen works in a separate thread asyncronously
-        S2,
+        SETUP_GAME_VIEW,
+        S9,
         EXIT
     }
     
@@ -21,6 +22,8 @@ public class FSM implements Controller{
     private View view;
     private Game game;
     private boolean exit;
+    
+    private boolean SIGNAL_requestExit = false;
     
     public FSM() {
         this.state = States.INIT;
@@ -43,7 +46,7 @@ public class FSM implements Controller{
     }
 
     private void execState() {
-        System.out.println("Executing state " + this.state);
+        System.out.println("   Executing state " + this.state);
         switch (this.state) {
         case INIT:
             setNextState(States.LOADING_SCREEN);
@@ -65,7 +68,7 @@ public class FSM implements Controller{
                 @Override
                 public void callbackOnFinished(FSM obj) {
                     Utils.sleep(1000);
-                    obj.setNextState(States.S2);
+                    obj.setNextState(States.SETUP_GAME_VIEW);
                 }
 
                 @Override
@@ -77,14 +80,31 @@ public class FSM implements Controller{
         case POST_LOADING_SCREEN:
             Utils.sleep(500);
             break;
-        case S2:
-            setNextState(States.EXIT);
+        case SETUP_GAME_VIEW:
+            setNextState(States.S9);
+            view.setupGameView();
+            view.showMainMenu();
+            break;
+        case S9:
+            if (this.SIGNAL_requestExit) setNextState(States.EXIT);
+            Utils.sleep(1000);
             break;
         case EXIT:
             this.exit = true;
+            view.closeGameView();
             break;
         default:
             break;
         }
+    }
+
+    @Override
+    public void showHelp() {
+        view.showHelp();
+    }
+
+    @Override
+    public void requestExit() {
+        SIGNAL_requestExit = true;
     }
 }
