@@ -1,10 +1,17 @@
 package com.github.lablabteam.mysterium.view;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,15 +38,22 @@ public class GuiView extends View {
 
     @Override
     public <T> void displayLoading(T obj, CallbackOnFinished<T> cb, List<String> paths) {
-        
+        ImageIcon icon = new ImageIcon("res/img/logo.jpg");
         //JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("Mysterium loading...");
+        List<Image> icons = Arrays.asList(
+                new ImageIcon("res/img/MYST_LOGO_32.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_64.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_128.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_256.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_72dpi.png.png").getImage()
+                );
+        frame.setIconImages(icons);
         frame.setUndecorated(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS); // top to bottom
         frame.setLayout(boxLayout);
         
-        ImageIcon icon = new ImageIcon("res/img/logo.jpg");
         
         JLabel picture = new JLabel(icon);
         JProgressBar progressBar;
@@ -86,9 +100,27 @@ public class GuiView extends View {
     @Override
     public void setupGameView() {
         System.out.println(Locale.getInstance().getText("setup_game_view_message"));
-        frame = new JFrame("Mysterium loading...");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame("Mysterium!");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
+        List<Image> icons = Arrays.asList(
+                new ImageIcon("res/img/MYST_LOGO_32.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_64.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_128.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_256.png").getImage(),
+                new ImageIcon("res/img/MYST_LOGO_72dpi.png.png").getImage()
+                );
+        frame.setIconImages(icons);
+        
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int result = JOptionPane.showConfirmDialog(frame, "Are you sure?");
+                if( result==JOptionPane.OK_OPTION){
+                    controller.requestExit();
+                }
+            }
+        });
         
         frame.pack();
         frame.setSize(1000, 750);
@@ -98,7 +130,7 @@ public class GuiView extends View {
     
     @Override
     public void showMainMenu() {
-        JPanel mainPanel = new JPanel( new FlowLayout( FlowLayout.CENTER, 10, 20 ) );
+        JPanel mainPanel = new JPanel();
         JButton playButton = new JButton("Play");
         JButton helpButton = new JButton("Help");
         JButton exitButton = new JButton("Exit");
@@ -117,21 +149,35 @@ public class GuiView extends View {
             }
         });
         
+        mainPanel.setLayout(new GridLayout(3,1));
         mainPanel.add(playButton);
         mainPanel.add(helpButton);
         mainPanel.add(exitButton);
+        
         frame.setContentPane(mainPanel);
+        frame.pack();
+        frame.setSize(1000, 750);
     }
 
     @Override
     public void closeGameView() {
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(false);
         frame.dispose();
     }
 
     @Override
     public void showHelp() {
-        JOptionPane.showMessageDialog(frame, "MSG", "InfoBox: " + "Titulo!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, "MSG", "Titulo!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showMysteriumGame() {
+        JPanel mainPanel = new JPanel();
+        mainPanel.add(new JLabel("Game!"));
+        frame.setContentPane(mainPanel);
+        frame.pack();
+        frame.setSize(1000, 750);
     }
     
 
