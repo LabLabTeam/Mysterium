@@ -1,0 +1,8 @@
+en: &1
+   welcome_message: "Welcome to Mysterium!"
+   show_points: "Player {{PLAYERNAME}} has {{POINTS}} points"
+   setup_game_view_message: "Game starting! Default"
+es:
+   welcome_message: "Bienvenid@ a Mysterium!"
+   show_points: "El jugador {{PLAYERNAME}} tiene {{POINTS}} puntos"
+default: *1
