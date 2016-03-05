@@ -32,4 +32,9 @@ public class TermView extends View {
         cb.callbackOnFinished(obj);
     }
 
+    @Override
+    public void setupGameView() {
+        System.out.println("Game starting!!!");
+    }
+
 }

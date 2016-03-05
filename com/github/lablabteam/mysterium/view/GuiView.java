@@ -74,4 +74,9 @@ public class GuiView extends View {
         frame.dispose();
     }
 
+    @Override
+    public void setupGameView() {
+        System.out.println("Game starting!!!");
+    }
+
 }
