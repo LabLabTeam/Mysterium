@@ -28,6 +28,12 @@ public class FSM implements Controller{
         this.exit = false;
     }
     
+    public void runStateMachine() {
+        while (!shouldExit()) {
+            execState();
+        }
+    }
+    
     private void setNextState(States state) {
         this.state = state;
     }
@@ -35,7 +41,8 @@ public class FSM implements Controller{
     public boolean shouldExit() {
         return this.exit;
     }
-    public void execState() {
+
+    private void execState() {
         System.out.println("Executing state " + this.state);
         switch (this.state) {
         case INIT:
