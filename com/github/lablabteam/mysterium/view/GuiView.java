@@ -131,6 +131,8 @@ public class GuiView extends View {
         JButton playButton = new JButton("Play");
         JButton helpButton = new JButton("Help");
         JButton exitButton = new JButton("Exit");
+        JButton playMusicButton = new JButton("Give it some sauce!");
+        JButton stopMusicButton = new JButton("Stop it right there!");
         
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -146,10 +148,26 @@ public class GuiView extends View {
             }
         });
         
-        mainPanel.setLayout(new GridLayout(3,1));
+        playMusicButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                controller.letsRockAndRoll();
+            }
+        });
+        
+        stopMusicButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                controller.partyNoMore();
+            }
+        });
+        
+        mainPanel.setLayout(new GridLayout(5,1));
         mainPanel.add(playButton);
         mainPanel.add(helpButton);
         mainPanel.add(exitButton);
+        mainPanel.add(playMusicButton);
+        mainPanel.add(stopMusicButton);
         
         frame.setContentPane(mainPanel);
         frame.pack();
