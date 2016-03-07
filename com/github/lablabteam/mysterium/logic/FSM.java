@@ -4,9 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.lablabteam.mysterium.utils.CallbackOnFinished;
+import com.github.lablabteam.mysterium.utils.ProcessCallback;
+import com.github.lablabteam.mysterium.utils.Sound;
 import com.github.lablabteam.mysterium.utils.Utils;
 import com.github.lablabteam.mysterium.view.GuiView;
 import com.github.lablabteam.mysterium.view.View;
+
 
 public class FSM implements Controller{
     private enum States {
@@ -18,6 +21,7 @@ public class FSM implements Controller{
         EXIT
     }
     
+    private Sound s;
     private States state;
     private View view;
     private Game game;
@@ -81,6 +85,7 @@ public class FSM implements Controller{
             Utils.sleep(500);
             break;
         case SETUP_GAME_VIEW:
+            letsRockAndRoll();
             setNextState(States.S9);
             view.setupGameView();
             view.showMainMenu();
@@ -106,5 +111,29 @@ public class FSM implements Controller{
     @Override
     public void requestExit() {
         SIGNAL_requestExit = true;
+    }
+    
+    @Override
+    public void letsRockAndRoll() {
+        if (s == null) {
+            s = new Sound("res/audio/Latin_Industries.wav", new ProcessCallback() {
+                @Override
+                public void callbackStatusPercentage(int percentage) {
+                    System.out.println(percentage + "%");
+                }
+    
+                @Override
+                public void callbackStatusAction(String action) {
+                    System.out.println(action);
+                    //s.play();
+                }
+            });
+        }
+        s.play();
+    }
+    
+    @Override
+    public void partyNoMore() {
+        s.stop();
     }
 }
