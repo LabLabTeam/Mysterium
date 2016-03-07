@@ -20,7 +20,7 @@ public class Locale {
             yamlReader = new YamlReader(new FileReader("res/locale/default.yml"));
             allLocale = (Map) yamlReader.read();
         } catch (Exception e) {
-            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream("./default.yml"));
+            Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("./default.yml"));
             yamlReader = new YamlReader(reader);
             try {
                 allLocale = (Map) yamlReader.read();
