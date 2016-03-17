@@ -53,19 +53,20 @@ public class GuiView extends View {
         
         
         JLabel picture = new JLabel(icon);
-        JProgressBar progressBar;
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setValue(0);
-        progressBar.setStringPainted(true);
+        final JProgressBar[] progressBar = {new JProgressBar(0, 100)};
+        
+        progressBar[0].setValue(0);
+        progressBar[0].setStringPainted(true);
+        
         
         JLabel labelLoading = new JLabel("Loading...");
         
         frame.add(picture);
-        frame.add(progressBar);
+        frame.add(progressBar[0]);
         frame.add(labelLoading);
         
         frame.pack();
-        frame.setSize(picture.getWidth(), picture.getHeight() + labelLoading.getHeight() + progressBar.getHeight());
+        frame.setSize(picture.getWidth(), picture.getHeight() + labelLoading.getHeight() + progressBar[0].getHeight());
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         
@@ -75,17 +76,17 @@ public class GuiView extends View {
             @Override
             public void callbackStatusPercentage(int percentage) {
                 //System.out.println(percentage + "%");
-                progressBar.setValue(percentage);
+                progressBar[0].setValue(percentage);
             }
 
             @Override
             public void callbackStatusAction(String action) {
                 //System.out.println(action);
-                //progressBar.setString(action);
-                labelLoading.setText(action);
+                progressBar[0].setString(action);
+                //labelLoading.setText(action);
             }
         });
-        progressBar.setValue(100);
+        progressBar[0].setValue(100);
         labelLoading.setText("Done!");
         
         cb.callbackOnFinished(obj);

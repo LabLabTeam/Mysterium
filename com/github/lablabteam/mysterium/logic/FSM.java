@@ -8,6 +8,7 @@ import com.github.lablabteam.mysterium.utils.ProcessCallback;
 import com.github.lablabteam.mysterium.utils.Sound;
 import com.github.lablabteam.mysterium.utils.Utils;
 import com.github.lablabteam.mysterium.view.GuiView;
+import com.github.lablabteam.mysterium.view.TermView;
 import com.github.lablabteam.mysterium.view.View;
 
 
@@ -97,6 +98,7 @@ public class FSM implements Controller{
         case EXIT:
             this.exit = true;
             view.closeGameView();
+            System.exit(0);
             break;
         default:
             break;
@@ -125,7 +127,7 @@ public class FSM implements Controller{
                 @Override
                 public void callbackStatusAction(String action) {
                     System.out.println(action);
-                    //s.play();
+                    s.play();
                 }
             });
         }

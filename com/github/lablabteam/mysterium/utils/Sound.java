@@ -3,9 +3,12 @@ package com.github.lablabteam.mysterium.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineEvent.Type;
 import javax.sound.sampled.LineListener;
@@ -32,7 +35,23 @@ public class Sound {
                 AudioInputStream sound = AudioSystem.getAudioInputStream(file);
                 
              // load the sound into memory (a Clip)
-                clip = AudioSystem.getClip();
+                // clip = AudioSystem.getClip();
+                
+                
+                
+                
+                //AudioInputStream soundIn = AudioSystem.getAudioInputStream(soundFile);
+                AudioFormat format = sound.getFormat();
+                DataLine.Info info = new DataLine.Info(Clip.class, format);
+                clip = (Clip)AudioSystem.getLine(info);
+                
+                
+                
+                
+                
+                
+                
+                
                 clip.open(sound);
                 
                 LineListener listener = new LineListener() {
@@ -41,7 +60,7 @@ public class Sound {
         					return;
         				}
         				//System.out.println("Stopped!");
-        				cb.callbackStatusAction("Stopped!");
+        				//cb.callbackStatusAction("Stopped!");
         				// Do things!
                     }
                 };
